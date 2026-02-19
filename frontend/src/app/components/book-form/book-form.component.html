@@ -1,0 +1,27 @@
+<div class="form-overlay" (click)="onCancel()">
+  <div class="form-card" (click)="$event.stopPropagation()">
+    <h2 class="form-title">{{ book ? 'Edit Book' : 'Add New Book' }}</h2>
+    <form (ngSubmit)="onSubmit()" class="form">
+      <div class="field">
+        <label for="title">Title</label>
+        <input id="title" type="text" [(ngModel)]="title" name="title" required placeholder="Enter book title">
+      </div>
+      <div class="field">
+        <label for="author">Author</label>
+        <input id="author" type="text" [(ngModel)]="author" name="author" required placeholder="Enter author name">
+      </div>
+      <div class="field">
+        <label for="isbn">ISBN</label>
+        <input id="isbn" type="text" [(ngModel)]="isbn" name="isbn" required placeholder="e.g. 978-0132350884">
+      </div>
+      <div class="field">
+        <label for="pubDate">Publication Date</label>
+        <input id="pubDate" type="date" [(ngModel)]="publicationDate" name="publicationDate" required>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn btn-ghost" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="btn btn-primary">{{ book ? 'Update' : 'Add' }}</button>
+      </div>
+    </form>
+  </div>
+</div>

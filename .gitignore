@@ -1,0 +1,34 @@
+# .NET
+backend/**/bin/
+backend/**/obj/
+backend/**/.vs/
+backend/**/*.user
+backend/**/*.suo
+backend/**/launchSettings.json
+
+# Node / Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.vscode/
+frontend/*.log
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vs/
+.idea/
+*.sln.iml
+*.iml
+
+# Environment
+.env
+.env.local

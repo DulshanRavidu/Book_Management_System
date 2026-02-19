@@ -1,0 +1,81 @@
+<div class="page">
+  <header class="header">
+    <div class="header-content">
+      <h1 class="logo">Book Management</h1>
+      <p class="tagline">Manage your library with ease</p>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="toolbar">
+      <div class="search-box">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input
+          type="text"
+          placeholder="Search by title, author or ISBN..."
+          [ngModel]="searchQuery()"
+          (ngModelChange)="onSearchChange($event)"
+          class="search-input"
+        />
+      </div>
+      <button class="btn btn-primary" (click)="onAdd()">
+        <span class="btn-icon">+</span>
+        Add Book
+      </button>
+    </div>
+
+    @if (loading()) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading books...</p>
+      </div>
+    } @else if (error()) {
+      <div class="error-state">
+        <p>{{ error() }}</p>
+        <button class="btn btn-ghost" (click)="loadBooks()">Retry</button>
+      </div>
+    } @else if (filteredBooks().length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">📚</div>
+        <h2>No books yet</h2>
+        <p>{{ searchQuery() ? 'No books match your search.' : 'Add your first book to get started.' }}</p>
+        @if (!searchQuery()) {
+          <button class="btn btn-primary" (click)="onAdd()">Add Book</button>
+        }
+      </div>
+    } @else {
+      <div class="book-grid">
+        @for (book of filteredBooks(); track book.id) {
+          <article class="book-card">
+            <div class="book-header">
+              <h3 class="book-title">{{ book.title }}</h3>
+              <span class="book-author">{{ book.author }}</span>
+            </div>
+            <div class="book-meta">
+              <span class="meta-label">ISBN</span>
+              <span class="meta-value">{{ book.isbn }}</span>
+            </div>
+            <div class="book-meta">
+              <span class="meta-label">Published</span>
+              <span class="meta-value">{{ book.publicationDate }}</span>
+            </div>
+            <div class="book-actions">
+              <button class="btn btn-ghost btn-sm" (click)="onEdit(book)">Edit</button>
+              <button class="btn btn-danger btn-sm" (click)="onDelete(book)">Delete</button>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  </main>
+</div>
+
+@if (showForm()) {
+  <app-book-form
+    [book]="editingBook()"
+    (save)="onSave($event)"
+    (cancel)="closeForm()"
+  />
+}

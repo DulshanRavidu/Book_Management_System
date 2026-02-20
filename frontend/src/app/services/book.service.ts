@@ -7,40 +7,42 @@ import { Book, BookInput } from '../models/book.model';
   providedIn: 'root'
 })
 export class BookService {
-  private apiUrl = 'http://localhost:5001/api/books';
+  private apiUrl = 'http://localhost:5000/api/books';
 
   constructor(private http: HttpClient) {}
 
+  private normalizeBookDate(book: Book): Book {
+    if (typeof book.publicationDate === 'string' && book.publicationDate.includes('T')) {
+      return { ...book, publicationDate: book.publicationDate.split('T')[0] };
+    }
+
+    return book;
+  }
+
   getAll(): Observable<Book[]> {
     return this.http.get<Book[]>(this.apiUrl).pipe(
-      tap(books => books.forEach(b => {
-        if (typeof b.publicationDate === 'string' && b.publicationDate.includes('T')) {
-          b.publicationDate = b.publicationDate.split('T')[0];
-        }
-      })),
+      map(books => books.map(book => this.normalizeBookDate(book))),
       catchError(() => of([]))
     );
   }
 
   getById(id: number): Observable<Book | null> {
     return this.http.get<Book>(`${this.apiUrl}/${id}`).pipe(
-      tap(book => {
-        if (typeof book.publicationDate === 'string' && book.publicationDate.includes('T')) {
-          book.publicationDate = book.publicationDate.split('T')[0];
-        }
-      }),
+      map(book => this.normalizeBookDate(book)),
       catchError(() => of(null))
     );
   }
 
   create(book: BookInput): Observable<Book | null> {
     return this.http.post<Book>(this.apiUrl, book).pipe(
+      map(created => this.normalizeBookDate(created)),
       catchError(() => of(null))
     );
   }
 
   update(id: number, book: BookInput): Observable<Book | null> {
     return this.http.put<Book>(`${this.apiUrl}/${id}`, book).pipe(
+      map(updated => this.normalizeBookDate(updated)),
       catchError(() => of(null))
     );
   }

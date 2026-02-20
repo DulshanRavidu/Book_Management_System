@@ -19,6 +19,7 @@ export class BookListComponent implements OnInit {
   editingBook = signal<Book | null>(null);
   showForm = signal(false);
   searchQuery = signal('');
+  deletingBook = signal<Book | null>(null);
 
   filteredBooks = computed(() => {
     const q = this.searchQuery().toLowerCase().trim();
@@ -84,13 +85,23 @@ export class BookListComponent implements OnInit {
   }
 
   onDelete(book: Book): void {
-    if (confirm(`Delete "${book.title}" by ${book.author}?`)) {
-      this.bookService.delete(book.id).subscribe(success => {
-        if (success) {
-          this.books.update(list => list.filter(b => b.id !== book.id));
-        }
-      });
-    }
+    this.deletingBook.set(book);
+  }
+
+  confirmDelete(): void {
+    const book = this.deletingBook();
+    if (!book) return;
+
+    this.bookService.delete(book.id).subscribe(success => {
+      if (success) {
+        this.books.update(list => list.filter(b => b.id !== book.id));
+      }
+      this.closeDeleteModal();
+    });
+  }
+
+  closeDeleteModal(): void {
+    this.deletingBook.set(null);
   }
 
   closeForm(): void {

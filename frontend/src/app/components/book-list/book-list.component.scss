@@ -11,8 +11,29 @@
 }
 
 .header-content {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.brand-logo {
+  width: 92px;
+  height: 92px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-elevated);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .logo {
@@ -232,4 +253,91 @@
   margin-top: auto;
   padding-top: 0.5rem;
   border-top: 1px solid var(--color-border);
+}
+
+.delete-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.delete-modal {
+  width: min(460px, 100%);
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  position: relative;
+  text-align: center;
+
+  h2 {
+    margin: 0.25rem 0 0.5rem;
+    color: var(--color-text);
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+
+  .book-name {
+    color: var(--color-text);
+    margin-top: 0.25rem;
+    font-weight: 600;
+    word-break: break-word;
+  }
+
+  .warning {
+    margin-top: 0.25rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.modal-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: var(--color-danger);
+  display: grid;
+  place-items: center;
+  font-size: 1.75rem;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-text);
+    background: var(--color-surface);
+  }
+}
+
+.modal-confirm,
+.modal-cancel {
+  width: 100%;
+  justify-content: center;
+}
+
+.modal-confirm {
+  margin-bottom: 0.75rem;
 }

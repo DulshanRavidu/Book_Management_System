@@ -1,6 +1,6 @@
 # Book Management System
 
-A modern web application for managing a list of books, built with **Angular** (frontend) and **ASP.NET Core** (backend) as per the Enhanzer assignment requirements.
+A modern web application for managing a list of books, built with **Angular** (frontend) and **ASP.NET Core** (backend).
 
 ## Features
 
@@ -43,11 +43,6 @@ Booking_Management system/
 
 ## Getting Started
 
-### Prerequisites
-
-- **.NET 8 SDK** – [Download](https://dotnet.microsoft.com/download)
-- **Node.js 18+** – [Download](https://nodejs.org/)
-- **Angular CLI** – `npm install -g @angular/cli@17`
 
 ### Run the Backend
 

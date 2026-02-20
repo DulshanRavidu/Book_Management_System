@@ -1,8 +1,13 @@
 <div class="page">
   <header class="header">
     <div class="header-content">
-      <h1 class="logo">Book Management</h1>
-      <p class="tagline">Manage your library with ease</p>
+      <div class="brand">
+        <img class="brand-logo" src="assets/logo.png?v=3" alt="Book Management logo" />
+        <div class="brand-text">
+          <h1 class="logo">Book Management</h1>
+          <p class="tagline">Manage your library with ease</p>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -78,4 +83,24 @@
     (save)="onSave($event)"
     (cancel)="closeForm()"
   />
+}
+
+@if (deletingBook(); as book) {
+  <div class="delete-modal-backdrop" (click)="closeDeleteModal()">
+    <section class="delete-modal" role="dialog" aria-modal="true" aria-labelledby="delete-title" (click)="$event.stopPropagation()">
+      <button class="modal-close" type="button" (click)="closeDeleteModal()" aria-label="Close">×</button>
+
+      <div class="modal-icon" aria-hidden="true">⚠</div>
+      <h2 id="delete-title">Are you sure?</h2>
+      <p>Are you sure you want to delete this book?</p>
+      <p class="book-name">{{ book.title }}</p>
+
+      <button class="btn btn-danger modal-confirm" type="button" (click)="confirmDelete()">
+        Delete Book
+      </button>
+      <button class="btn btn-ghost modal-cancel" type="button" (click)="closeDeleteModal()">
+        Cancel
+      </button>
+    </section>
+  </div>
 }
